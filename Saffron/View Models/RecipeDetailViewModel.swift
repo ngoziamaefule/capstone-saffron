@@ -6,26 +6,35 @@
 //
 
 import Foundation
+import SwiftUI
+import Firebase
+import FirebaseFirestoreSwift
+
+
 
 @MainActor
 class RecipeDetailViewModel: ObservableObject {
+    private var db: Firestore
+    @Published var randomRecipe: [RandomRecipeViewModel] = []
     
-    @Published var imageUrl: URL?
-    @Published var title: String = ""
-    @Published var ingredients: [String] = []
+    init() {
+        db = Firestore.firestore()
+    }
     
-    func populateRecipeDetail(recipeId: String) async {
+    func populateRecipeDetail() async {
         
         do {
-            let recipeDetailResponse = try await Webservice().get(url: Constants.Urls.recipeById(recipeId)) { data in
-                return try? JSONDecoder().decode(RecipeDetailResponse.self, from: data)
+            let recipeResponse = try await Webservice().get(url: Constants.Urls.recipeById()) { data -> RecipeDetailResponse? in
+                do {
+                    return try JSONDecoder().decode(RecipeDetailResponse.self, from: data)
+                } catch {
+                    let err = error
+                    print("\(err)")
+                    return nil
+                }
             }
             
-            let recipeDetail = recipeDetailResponse.recipe
-            self.imageUrl = URL(string: recipeDetail.imageUrl)!
-            self.title = recipeDetail.title
-            self.ingredients = recipeDetail.ingredients
-            
+            self.randomRecipe = recipeResponse.recipes.map(RandomRecipeViewModel.init)
         } catch {
             print(error)
         }
@@ -33,3 +42,38 @@ class RecipeDetailViewModel: ObservableObject {
     }
     
 }
+
+struct RandomRecipeViewModel {
+    
+    let recipe: RecipeDetail
+    
+    init(_ recipe: RecipeDetail) {
+        self.recipe = recipe
+    }
+    
+    var id: Int {
+        recipe.id
+    }
+    
+    var title: String {
+        recipe.title ?? ""
+    }
+    
+    var image: URL? {
+        if let recipeImage = recipe.image {
+            return URL(string: recipeImage)
+        }
+        
+        return nil
+        
+    }
+    
+    var ingredients: [IngredientRecord] {
+        recipe.extendedIngredients
+    }
+    
+    var instructions: String {
+        recipe.instructions ?? ""
+    }
+}
+

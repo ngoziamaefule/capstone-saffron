@@ -22,6 +22,12 @@ class Webservice {
         // Performs the request. Returns data and the response.
         let (data, response) = try await URLSession.shared.data(from: url)
         
+        let httpData = data
+        
+        let str = String(data: httpData, encoding: .utf8)!
+        
+        print(str)
+        
         // Raises an error if data does not exist
         if (response as? HTTPURLResponse)?.statusCode != 200 {
             throw NetworkError.badRequest

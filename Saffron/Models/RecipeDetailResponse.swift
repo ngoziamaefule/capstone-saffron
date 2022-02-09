@@ -8,12 +8,30 @@
 import Foundation
 
 struct RecipeDetailResponse: Decodable {
-    let recipe: RecipeDetail
+    let recipes: [RecipeDetail]
 }
 
-struct RecipeDetail: Decodable {
-    let imageUrl: String
-    let id: String
-    let title: String
-    let ingredients: [String]
+struct RecipeDetail: Codable {
+    let image: String?
+    let id: Int
+    let title: String?
+    let extendedIngredients: [IngredientRecord]
+    let instructions: String?
+}
+
+struct IngredientRecord: Codable {
+    let id: Int
+    let name: String
+    let measures: IngredientMeasurement
+}
+
+struct IngredientMeasurement: Codable {
+    let us: IngredientAmount
+    let metric: IngredientAmount
+}
+
+struct IngredientAmount: Codable {
+    let amount: Double
+    let unitShort: String
+    let unitLong: String
 }

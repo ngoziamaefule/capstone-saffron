@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Firebase
+import FirebaseFirestoreSwift
 
 @main
 struct SaffronApp: App {

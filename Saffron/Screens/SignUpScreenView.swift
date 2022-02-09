@@ -1,19 +1,17 @@
 //
-//  SignInScreenView.swift
+//  SignUpScreenView.swift
 //  Saffron
 //
-//  Created by Ngozi Amaefule on 2/2/22.
+//  Created by Ngozi Amaefule on 2/8/22.
 //
-
+import Foundation
 import SwiftUI
-import FirebaseAuth
-import FirebaseFirestore
-import FirebaseFirestoreSwift
 
-
-struct SignInScreenView: View {
+struct SignUpScreenView: View {
     @State var email = ""
     @State var password = ""
+    
+    @State private var showSignIn = false
     
     @EnvironmentObject var viewModel: AppViewModel
     var body: some View {
@@ -21,9 +19,8 @@ struct SignInScreenView: View {
             Image(uiImage: #imageLiteral(resourceName: "Saffron2.jpeg"))
                 .resizable()
                 .edgesIgnoringSafeArea(.all)
+            
             VStack {
-                Spacer()
-                
                 VStack {
                     TextField("Email address", text: $email)
                         .disableAutocorrection(true)
@@ -51,9 +48,10 @@ struct SignInScreenView: View {
                     guard !email.isEmpty, !password.isEmpty else {
                         return
                     }
-                    viewModel.signIn(email: email, password: password)
+                    viewModel.signUp(email: email, password: password)
+                    showSignIn.toggle()
                 } label: {
-                    Text("Sign In")
+                    Text("Create Account")
                         .font(.title3)
                         .fontWeight(.bold)
                         .foregroundColor(Color.white)
@@ -63,21 +61,8 @@ struct SignInScreenView: View {
                         .shadow(color: Color.black.opacity(0.88), radius: 60, x: 0.0, y: 16)
                         .padding(.vertical)
                 }
-                
-                Spacer()
-                
             }
-            .navigationTitle("Sign In")
+            .navigationTitle("Sign Up")
         }
     }
 }
-
-
-
-struct SignInScreenView_Previews: PreviewProvider {
-    static var previews: some View {
-        SignInScreenView()
-    }
-}
-
-//}

@@ -137,4 +137,6 @@ iOSInjectionProject/
 
 GoogleService-Info.plist
 
+
 # End of https://www.toptal.com/developers/gitignore/api/xcode,macos,swift,firebase
+Saffron/Utils/DoNotAddToGithub.swift
