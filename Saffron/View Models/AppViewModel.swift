@@ -15,7 +15,9 @@ class AppViewModel: ObservableObject {
     let auth = Auth.auth()
     
     @Published var signedIn = false
-    @Published var currentUser: User?
+    var currentUser: User? {
+        auth.currentUser
+    }
     
     var isSignedIn: Bool {
         return auth.currentUser != nil
@@ -30,7 +32,7 @@ class AppViewModel: ObservableObject {
             DispatchQueue.main.async {
                 // Success
                 self?.signedIn = true
-                self?.currentUser = result?.user
+//                self?.currentUser = result?.user
             }
         }
     }
@@ -45,7 +47,7 @@ class AppViewModel: ObservableObject {
                 // Success
                 // The exception for weak self
                 self?.signedIn = true
-                self?.currentUser = result?.user
+//                self?.currentUser = result?.user
             }
         }
     }
@@ -54,7 +56,7 @@ class AppViewModel: ObservableObject {
         try auth.signOut()
         // The rule for self
         signedIn = false
-        currentUser = nil
+//        currentUser = nil
         
     }
 }

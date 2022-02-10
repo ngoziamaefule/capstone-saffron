@@ -6,12 +6,14 @@
 //
 
 import Foundation
+import FirebaseFirestoreSwift
 
 struct RecipeDetailResponse: Decodable {
     let recipes: [RecipeDetail]
 }
 
 struct RecipeDetail: Codable {
+    var documentID: String?
     let image: String?
     let id: Int
     let title: String?

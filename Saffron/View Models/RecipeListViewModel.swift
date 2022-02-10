@@ -4,47 +4,90 @@
 //
 //  Created by Ngozi Amaefule on 2/3/22.
 //
+// Think "inverse of the saveData func"
 
 import Foundation
+import SwiftUI
+import Firebase
+import FirebaseFirestoreSwift
 
 @MainActor
 class RecipeListViewModel: ObservableObject {
+    private var db: Firestore
+    @Published var recipes: [RecipeListItemViewModel] = [RecipeListItemViewModel]()
+    @Published var recipe: RandomRecipeViewModel?
     
-    @Published var recipes: [RecipeViewModel] = [RecipeViewModel]()
+    init() {
+        db = Firestore.firestore()
+    }
     
-    func populateRecipesByCategory(name: String) async {
-        
-        do {
-            
-            let recipeResponse = try await Webservice().get(url: Constants.Urls.recipeByCategoryName(name)) { data in
-                return try? JSONDecoder().decode(RecipeResponse.self, from: data)
+  
+    // making a call to loadRecipeList function instead of using url
+    
+    func loadRecipeList(uid: String) {
+//        let uid = viewModel.currentUser!.uid
+        db.collection("cookbooks").document(uid).collection("recipes").getDocuments { snapshot, error in
+                if let error = error {
+                    print(error.localizedDescription)
+                } else {
+                    if let snapshot = snapshot {
+                        
+                        DispatchQueue.main.async {
+                            self.recipes = snapshot.documents.map { doc in
+                                var recipeDetail = try? doc.data(as: RecipeDetail.self)
+                                recipeDetail?.documentID = doc.documentID // this is the document ID of the individual recipe
+                                return RecipeListItemViewModel(recipeDetail!)
+//                                return RecipeListItemViewModel(id: doc.documentID)
+                            }
+                        }
+                    }
+                }
             }
-            self.recipes = recipeResponse.recipes.map(RecipeViewModel.init)
-            
-        } catch {
-            print(error)
+        
+    }
+// The document snapshot itself has document id which I will need to pass in to the subcollection
+    func loadRecipe(uid: String, documentID: String) {
+        //        let uid = viewModel.currentUser!.uid
+        db.collection("cookbooks").document(uid).collection("recipes").document(documentID).getDocument { doc, error in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                if let doc = doc {
+                    
+                    DispatchQueue.main.async {
+                        var recipeDetail = try? doc.data(as: RecipeDetail.self)
+                        recipeDetail?.documentID = doc.documentID
+                        self.recipe = RandomRecipeViewModel(recipeDetail!)
+                        //                                return RecipeListItemViewModel(id: doc.documentID)
+                    }
+                }
+            }
         }
     }
     
-}
+//    func deleteRecipe(uid: String, documentID: String) {
+//        db.collection("cookbooks").document(uid).collection("recipes").document(documentID).delete { error in
+//            if let error = error {
+//                print(error.localizedDescription)
+//            } else {
+//                self.recipe?.ingredients.removeAll {
+//                    return recipe?.documentID
+//                }
+//            }
+//        }
+//    }
+    // !!! Should I pass uid and documentID in if recipe = recipes[index]
+    func deleteRecipe(uid: String, documentID: String) {
+            db.collection("cookbooks").document(uid).collection("recipes").document(documentID).delete { error in
+                if let error = error {
+                    print(error.localizedDescription)
+                } else {
+                    self.loadRecipeList(uid: uid)
+                }
+            }
+        }
+    }
 
-struct RecipeViewModel {
-    
-    private let recipe: Recipe
-    
-    init(_ recipe: Recipe) {
-        self.recipe = recipe 
-    }
-    
-    var id: String {
-        recipe.id
-    }
-    
-    var title: String {
-        recipe.title
-    }
-    
-    var imageURL: URL? {
-        URL(string: recipe.imageUrl)
-    }
-}
+
+
+

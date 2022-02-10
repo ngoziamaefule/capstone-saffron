@@ -14,7 +14,6 @@ struct RecipeDetailScreen: View {
     @EnvironmentObject var viewModel: AppViewModel
     
     private var db: Firestore
-    @State private var randomRecipe: String = ""
     
     
     init() {
@@ -34,6 +33,7 @@ struct RecipeDetailScreen: View {
         
     }
     
+    // Once I change the array, edit this view to reflect changes
     @StateObject private var recipeDetailVM = RecipeDetailViewModel()
     let bounds = UIScreen.main.bounds
     
@@ -41,8 +41,17 @@ struct RecipeDetailScreen: View {
         //        TabView {
         ScrollView {
             VStack(alignment: .leading) {
-                Text(recipeDetailVM.randomRecipe.first?.title ?? "")
-                AsyncImage(url: recipeDetailVM.randomRecipe.first?.image) { image in
+                Text(recipeDetailVM.randomRecipes.first?.title ?? "")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.black)
+                    .padding()
+//                    .background(Color.orange)
+                    .cornerRadius(50.0)
+                    .shadow(color: Color.black.opacity(0.88), radius: 60, x: 0.0, y: 16)
+                    .padding(.bottom)
+                
+                AsyncImage(url: recipeDetailVM.randomRecipes.first?.image) { image in
                     image.resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: bounds.width - 20)
@@ -52,26 +61,58 @@ struct RecipeDetailScreen: View {
                 }
                 .padding(.bottom, 20)
                 
-                ForEach(recipeDetailVM.randomRecipe.first?.ingredients ?? [], id: \.id) { ingredient in
+                Text("Ingredients")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.black)
+                    .padding(.bottom)
+                
+                ForEach(recipeDetailVM.randomRecipes.first?.ingredients ?? [], id: \.id) { ingredient in
                     Text(ingredient.name)
-                }
-                
-                Text(recipeDetailVM.randomRecipe.first?.instructions ?? "")
-                
-                
-                Button("Save Recipe!") {
-                    saveRecipe(recipe: recipeDetailVM.randomRecipe.first!)
                 }
                 
                 Spacer()
                 
-                Button(action: {
-                    do {
-                        try viewModel.signOut()
-                        
+                Text("Instructions")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.black)
+                    .padding(.bottom)
+                
+                Text(recipeDetailVM.randomRecipes.first?.instructions ?? "")
+                
+                HStack {
+                    Button("Save Recipe!") {
+                        saveRecipe(recipe: recipeDetailVM.randomRecipes.first!)
                     }
-                    catch {}
-                }, label: {Text("Sign Out")})
+                    .font(.title3)
+                    //                .fontWeight(.bold)
+                    .foregroundColor(Color.white)
+                    .padding()
+                    .background(Color.orange)
+                    .cornerRadius(50.0)
+                    .shadow(color: Color.black.opacity(0.88), radius: 60, x: 0.0, y: 16)
+                    .padding(.vertical)
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        do {
+                            try viewModel.signOut()
+                            
+                        }
+                        catch {}
+                    }, label: {Text("Sign Out")
+                            .font(.title3)
+//                            .fontWeight(.bold)
+                            .foregroundColor(Color.white)
+                            .padding()
+                            .background(Color.orange)
+                            .cornerRadius(50.0)
+                            .shadow(color: Color.black.opacity(0.88), radius: 60, x: 0.0, y: 16)
+                            .padding(.vertical)
+                    })
+                }
             }
             .padding()
             .task {

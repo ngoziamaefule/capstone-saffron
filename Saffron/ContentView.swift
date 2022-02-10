@@ -20,12 +20,12 @@ struct ContentView: View {
                     RecipeDetailScreen()
                         .tabItem() {
                             VStack {
-                                Image(systemName: "book")
-                                Text("Cookbook")
+                                Image(systemName: "fork.knife")
+                                Text("Random Recipes")
                             }
                             
                         }
-                    RecipeDetailScreen()
+                    RecipeListScreen(documentID: viewModel.currentUser!.uid)
                         .tabItem() {
                             VStack {
                                 Image(systemName: "book.fill")
