@@ -77,7 +77,7 @@ struct RecipeDetailScreen: View {
                     .font(.title)
                     .fontWeight(.bold)
                     .foregroundColor(Color.black)
-                    .padding(.bottom)
+                    .padding(.vertical)
                 
                 Text(recipeDetailVM.randomRecipes.first?.instructions ?? "")
                 
@@ -91,27 +91,14 @@ struct RecipeDetailScreen: View {
                     .padding()
                     .background(Color.orange)
                     .cornerRadius(50.0)
-                    .shadow(color: Color.black.opacity(0.88), radius: 60, x: 0.0, y: 16)
+                    .shadow(color: Color.orange.opacity(0.88), radius: 60, x: 0.0, y: 16)
                     .padding(.vertical)
                     
                     Spacer()
                     
-                    Button(action: {
-                        do {
-                            try viewModel.signOut()
-                            
-                        }
-                        catch {}
-                    }, label: {Text("Sign Out")
-                            .font(.title3)
-//                            .fontWeight(.bold)
-                            .foregroundColor(Color.white)
-                            .padding()
-                            .background(Color.orange)
-                            .cornerRadius(50.0)
-                            .shadow(color: Color.black.opacity(0.88), radius: 60, x: 0.0, y: 16)
-                            .padding(.vertical)
-                    })
+//                    Button("Refresh Recipe") {
+//                        await recipeDetailVM.populateRecipeDetail()
+//                    }
                 }
             }
             .padding()

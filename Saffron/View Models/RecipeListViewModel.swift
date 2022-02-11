@@ -58,25 +58,12 @@ class RecipeListViewModel: ObservableObject {
                         var recipeDetail = try? doc.data(as: RecipeDetail.self)
                         recipeDetail?.documentID = doc.documentID
                         self.recipe = RandomRecipeViewModel(recipeDetail!)
-                        //                                return RecipeListItemViewModel(id: doc.documentID)
                     }
                 }
             }
         }
     }
-    
-//    func deleteRecipe(uid: String, documentID: String) {
-//        db.collection("cookbooks").document(uid).collection("recipes").document(documentID).delete { error in
-//            if let error = error {
-//                print(error.localizedDescription)
-//            } else {
-//                self.recipe?.ingredients.removeAll {
-//                    return recipe?.documentID
-//                }
-//            }
-//        }
-//    }
-    // !!! Should I pass uid and documentID in if recipe = recipes[index]
+
     func deleteRecipe(uid: String, documentID: String) {
             db.collection("cookbooks").document(uid).collection("recipes").document(documentID).delete { error in
                 if let error = error {

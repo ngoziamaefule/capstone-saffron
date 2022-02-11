@@ -22,8 +22,8 @@ class RecipeDetailViewModel: ObservableObject {
         db = Firestore.firestore()
     }
     
+//    func populateRecipeDetail() async {
     func populateRecipeDetail() async {
-        
         do {
             let recipeResponse = try await Webservice().get(url: Constants.Urls.recipeById()) { data -> RecipeDetailResponse? in
                 do {
@@ -41,24 +41,5 @@ class RecipeDetailViewModel: ObservableObject {
         }
         
     }
-    
-//    func loadRecipe(uid: String, documentID: String) {
-//        //        let uid = viewModel.currentUser!.uid
-//        db.collection("cookbooks").document(uid).collection("recipes").document(documentID).getDocument { doc, error in
-//            if let error = error {
-//                print(error.localizedDescription)
-//            } else {
-//                if let doc = doc {
-//
-//                    DispatchQueue.main.async {
-//                        var recipeDetail = try? doc.data(as: RecipeDetail.self)
-//                        recipeDetail?.documentID = doc.documentID
-//                        self.recipe = recipeDetail!
-//                        //                                return RecipeListItemViewModel(id: doc.documentID)
-//                    }
-//                }
-//            }
-//        }
-//    }
 }
 

@@ -14,31 +14,67 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView  {
-            
             if viewModel.isSignedIn {
-                TabView {
-                    RecipeDetailScreen()
-                        .tabItem() {
-                            VStack {
-                                Image(systemName: "fork.knife")
-                                Text("Random Recipes")
+                VStack {
+                    
+                    VStack {
+                        Text("Saffron")
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                            .foregroundColor(Color.orange)
+//                            .padding(.bottom)
+//                            .background(Color.white)
+//                            .cornerRadius(50.0)
+                            .shadow(color: Color.orange.opacity(0.88), radius: 60, x: 0.0, y: 16)
+//                            .padding()
+                        
+//                        Spacer()
+                        
+                        Button(action: {
+                            do {
+                                try viewModel.signOut()
                             }
-                            
-                        }
-                    RecipeListScreen(documentID: viewModel.currentUser!.uid)
-                        .tabItem() {
-                            VStack {
-                                Image(systemName: "book.fill")
-                                Text("Cookbook")
+                            catch {}
+                        }, label: {Text("Sign Out")
+                                .font(.title3)
+//                            .fontWeight(.bold)
+                                .foregroundColor(Color.white)
+                                .padding()
+                                .background(Color.orange)
+                                .cornerRadius(50.0)
+//                                .shadow(color: Color.orange.opacity(0.88), radius: 60, x: 0.0, y: 16)
+                                .padding(.bottom)
+                        })
+                    }
+                    // Move sign out button here
+                    TabView {
+                        RecipeDetailScreen()
+                            .tabItem() {
+                                VStack {
+                                    Image(systemName: "fork.knife")
+                                    Text("Random Recipes")
+                                }
+                                
                             }
-                        }
+                        RecipeListScreen()
+                            .tabItem() {
+                                VStack {
+                                    Image(systemName: "book.fill")
+                                    Text("Cookbook")
+                                }
+                            }
+                    }
+                    .accentColor(.orange)
                 }
-                .accentColor(.orange)
             }
             else {
                 WelcomeScreenView()
             }
         }
+        .navigationBarTitle("", displayMode: .inline)
+        .navigationBarHidden(true)
+        .navigationBarBackButtonHidden(true)
+        
     }
     
     struct ContentView_Previews: PreviewProvider {

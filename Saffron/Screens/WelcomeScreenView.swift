@@ -43,7 +43,9 @@ struct WelcomeScreenView: View {
             }
             //                NavigationLink("Create Account", destination: SignUpScreenView())
             //                    .foregroundColor(Color.white)
-        }.navigationBarHidden(true)
+        }
+        .navigationBarTitle("")
+        .navigationBarHidden(true)
         //        }
     }
 }
