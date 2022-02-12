@@ -11,42 +11,11 @@ import FirebaseAuth
 struct ContentView: View {
     
     @EnvironmentObject var viewModel: AppViewModel
-    
     var body: some View {
         NavigationView  {
             if viewModel.isSignedIn {
                 VStack {
                     
-                    VStack {
-                        Text("Saffron")
-                            .font(.largeTitle)
-                            .fontWeight(.bold)
-                            .foregroundColor(Color.orange)
-//                            .padding(.bottom)
-//                            .background(Color.white)
-//                            .cornerRadius(50.0)
-                            .shadow(color: Color.orange.opacity(0.88), radius: 60, x: 0.0, y: 16)
-//                            .padding()
-                        
-//                        Spacer()
-                        
-                        Button(action: {
-                            do {
-                                try viewModel.signOut()
-                            }
-                            catch {}
-                        }, label: {Text("Sign Out")
-                                .font(.title3)
-//                            .fontWeight(.bold)
-                                .foregroundColor(Color.white)
-                                .padding()
-                                .background(Color.orange)
-                                .cornerRadius(50.0)
-//                                .shadow(color: Color.orange.opacity(0.88), radius: 60, x: 0.0, y: 16)
-                                .padding(.bottom)
-                        })
-                    }
-                    // Move sign out button here
                     TabView {
                         RecipeDetailScreen()
                             .tabItem() {
@@ -56,6 +25,8 @@ struct ContentView: View {
                                 }
                                 
                             }
+//                        Divider()
+                        
                         RecipeListScreen()
                             .tabItem() {
                                 VStack {
@@ -63,15 +34,50 @@ struct ContentView: View {
                                     Text("Cookbook")
                                 }
                             }
+                        //                            .navigationBarTitle("Saffron")
                     }
                     .accentColor(.orange)
+                    //                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar { // <2>
+                        ToolbarItem(placement: .principal) { // <3>
+                            ZStack {
+                                //                                Spacer()
+                                //                                Spacer()
+                                //                                Spacer()
+                                HStack {
+                                    Spacer()
+                                    Text("Saffron").font(.largeTitle.bold()).foregroundColor(Color.orange).italic()
+                                    Spacer()
+                                }
+                                
+                                HStack {
+                                    Spacer()
+                                    Button(action: {
+                                        do {
+                                            try viewModel.signOut()
+                                        }
+                                        catch {}
+                                    }, label: {Text("Sign Out")
+                                        //                                        .font(.)
+                                        //                            .fontWeight(.bold)
+                                            .foregroundColor(Color.orange)
+                                        //                                        .padding()
+                                        //                                        .background(Color.orange)
+                                        //                                        .cornerRadius(50.0)
+                                        //                                .shadow(color: Color.orange.opacity(0.88), radius: 60, x: 0.0, y: 16)
+                                            .padding(.all)
+                                    })
+                                }
+                                //                                    .frame(width: 1.0, height: 1.0)
+                            }
+                        }
+                    }
                 }
             }
             else {
                 WelcomeScreenView()
             }
         }
-        .navigationBarTitle("", displayMode: .inline)
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
         
@@ -96,4 +102,3 @@ struct ContentView: View {
         }
     }
 }
-

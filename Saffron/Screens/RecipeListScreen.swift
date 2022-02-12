@@ -58,5 +58,6 @@ struct RecipeListScreen: View {
                 recipeListVM.loadRecipeList(uid: viewModel.currentUser!.uid) // This is correct, I worked on it with Ansel
             }
         }
+//        .navigationBarTitleDisplayMode(.inline)
     }
 }
