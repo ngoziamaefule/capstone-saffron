@@ -25,7 +25,6 @@ struct ContentView: View {
                                 }
                                 
                             }
-//                        Divider()
                         
                         RecipeListScreen()
                             .tabItem() {
@@ -34,16 +33,12 @@ struct ContentView: View {
                                     Text("Cookbook")
                                 }
                             }
-                        //                            .navigationBarTitle("Saffron")
                     }
                     .accentColor(.orange)
-                    //                    .navigationBarTitleDisplayMode(.inline)
-                    .toolbar { // <2>
-                        ToolbarItem(placement: .principal) { // <3>
+                    .tabViewStyle(DefaultTabViewStyle())
+                    .toolbar {
+                        ToolbarItem(placement: .principal) {
                             ZStack {
-                                //                                Spacer()
-                                //                                Spacer()
-                                //                                Spacer()
                                 HStack {
                                     Spacer()
                                     Text("Saffron").font(.largeTitle.bold()).foregroundColor(Color.orange).italic()
@@ -58,17 +53,10 @@ struct ContentView: View {
                                         }
                                         catch {}
                                     }, label: {Text("Sign Out")
-                                        //                                        .font(.)
-                                        //                            .fontWeight(.bold)
                                             .foregroundColor(Color.orange)
-                                        //                                        .padding()
-                                        //                                        .background(Color.orange)
-                                        //                                        .cornerRadius(50.0)
-                                        //                                .shadow(color: Color.orange.opacity(0.88), radius: 60, x: 0.0, y: 16)
                                             .padding(.all)
                                     })
                                 }
-                                //                                    .frame(width: 1.0, height: 1.0)
                             }
                         }
                     }
