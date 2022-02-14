@@ -17,14 +17,18 @@ struct ContentView: View {
                 VStack {
                     
                     TabView {
-                        RecipeDetailScreen()
-                            .tabItem() {
-                                VStack {
-                                    Image(systemName: "fork.knife")
-                                    Text("Random Recipes")
+//                        RecipeDetailScreen()
+                        GeometryReader { proxy in
+                            RecipeCardView(proxy: proxy)
+                        }
+                                .tabItem() {
+                                    VStack {
+                                        Image(systemName: "fork.knife")
+                                        Text("Random Recipes")
+                                    }
+                                    
                                 }
-                                
-                            }
+                        
                         
                         RecipeListScreen()
                             .tabItem() {

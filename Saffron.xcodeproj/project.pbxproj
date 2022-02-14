@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		CB5B83E527B6C5A60004D897 /* AsyncButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5B83E427B6C5A60004D897 /* AsyncButton.swift */; };
 		CB5B83E727B711AD0004D897 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5B83E627B711AC0004D897 /* UIImage+Extension.swift */; };
+		CB5B83E927B9B07A0004D897 /* RecipeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5B83E827B9B07A0004D897 /* RecipeCardView.swift */; };
 		CB888CF127AB150B003FD677 /* SaffronApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB888CF027AB150B003FD677 /* SaffronApp.swift */; };
 		CB888CF327AB150B003FD677 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB888CF227AB150B003FD677 /* ContentView.swift */; };
 		CB888CF527AB1511003FD677 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB888CF427AB1511003FD677 /* Assets.xcassets */; };
@@ -44,6 +45,7 @@
 /* Begin PBXFileReference section */
 		CB5B83E427B6C5A60004D897 /* AsyncButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncButton.swift; sourceTree = "<group>"; };
 		CB5B83E627B711AC0004D897 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		CB5B83E827B9B07A0004D897 /* RecipeCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCardView.swift; sourceTree = "<group>"; };
 		CB888CED27AB150B003FD677 /* Saffron.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Saffron.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB888CF027AB150B003FD677 /* SaffronApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaffronApp.swift; sourceTree = "<group>"; };
 		CB888CF227AB150B003FD677 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 				CBE6205827AC157A00C4A8C2 /* RecipeListItemDetailView.swift */,
 				CB5B83E427B6C5A60004D897 /* AsyncButton.swift */,
 				CB5B83E627B711AC0004D897 /* UIImage+Extension.swift */,
+				CB5B83E827B9B07A0004D897 /* RecipeCardView.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -281,6 +284,7 @@
 				CBE6206727AC171500C4A8C2 /* RecipeListViewModel.swift in Sources */,
 				CB888D1A27AB7ABF003FD677 /* SignInScreenView.swift in Sources */,
 				CBE6206127AC165700C4A8C2 /* RecipeDetailScreen.swift in Sources */,
+				CB5B83E927B9B07A0004D897 /* RecipeCardView.swift in Sources */,
 				CBE6206F27AC179E00C4A8C2 /* RecipeDetailResponse.swift in Sources */,
 				CBCBE35627B439C5003CFCEB /* RandomRecipeViewModel.swift in Sources */,
 				CBE6207727B0A33100C4A8C2 /* DoNotAddToGithub.swift in Sources */,

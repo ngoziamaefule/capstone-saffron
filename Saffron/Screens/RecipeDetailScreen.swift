@@ -25,18 +25,18 @@ struct RecipeDetailScreen: View {
     
     
     
-    private func saveRecipe(recipe: RandomRecipeViewModel) {
-        let uid = viewModel.currentUser!.uid
-        _ = try? db.collection("cookbooks").document(uid).collection("recipes")
-            .addDocument(from: recipe.recipe) { error in
-                if let error = error {
-                    print(error.localizedDescription)
-                } else {
-                    print("Document has been saved!")
-                }
-            }
-        
-    }
+//    private func saveRecipe(recipe: RandomRecipeViewModel) {
+//        let uid = viewModel.currentUser!.uid
+//        _ = try? db.collection("cookbooks").document(uid).collection("recipes")
+//            .addDocument(from: recipe.recipe) { error in
+//                if let error = error {
+//                    print(error.localizedDescription)
+//                } else {
+//                    print("Document has been saved!")
+//                }
+//            }
+//        
+//    }
     
     
     // Once I change the array, edit this view to reflect changes
@@ -53,6 +53,7 @@ struct RecipeDetailScreen: View {
         //            Text("Hi")
         //                .background(Color.white.opacity(1.0))
         //                .frame(maxWidth: .infinity, maxHeight: .infinity)
+        NavigationView {
         ScrollView {
 //            ScrollViewReader { value in
                 
@@ -84,31 +85,31 @@ struct RecipeDetailScreen: View {
                         ProgressView()
                     }
                     
-                    HStack {
-                        Spacer()
-                        
-                        Button("Refresh!") {
-                            if !isPerformingTask {
-                                
-                                isPerformingTask = true
-                                Task {
-                                    await recipeDetailVM.populateRecipeDetail()
-                                    isPerformingTask = false
-                                }
-                            }
-                        }
-                        .font(.title3)
-                        //                .fontWeight(.bold)
-                        .foregroundColor(Color.white)
-                        .padding()
-                        .background(Color.orange)
-                        .cornerRadius(50.0)
-                        .shadow(color: Color.orange.opacity(0.88), radius: 60, x: 0.0, y: 16)
-                        .padding(.vertical)
-                        .disabled(isPerformingTask)
-                        
-                        Spacer()
-                    }
+//                    HStack {
+//                        Spacer()
+//                        
+//                        Button("Refresh!") {
+//                            if !isPerformingTask {
+//                                
+//                                isPerformingTask = true
+//                                Task {
+//                                    await recipeDetailVM.populateRecipeDetail()
+//                                    isPerformingTask = false
+//                                }
+//                            }
+//                        }
+//                        .font(.title3)
+//                        //                .fontWeight(.bold)
+//                        .foregroundColor(Color.white)
+//                        .padding()
+//                        .background(Color.orange)
+//                        .cornerRadius(50.0)
+//                        .shadow(color: Color.orange.opacity(0.88), radius: 60, x: 0.0, y: 16)
+//                        .padding(.vertical)
+//                        .disabled(isPerformingTask)
+//                        
+//                        Spacer()
+//                    }
                     
                     Text("Ingredients")
                         .font(.title)
@@ -133,19 +134,19 @@ struct RecipeDetailScreen: View {
                     HStack {
                         Spacer()
                         
-                        Button("Save Recipe!") {
-                            saveRecipe(recipe: recipeDetailVM.randomRecipes.first!)
-//                            value.scrollTo(<#_#>, anchor: .top)
-                            if !isPerformingTask {
-                                
-                                isPerformingTask = true
-                                Task {
-                                    await recipeDetailVM.populateRecipeDetail()
-                                    isPerformingTask = false
-                                }
-                            }
-                            
-                        }
+//                        Button("Save Recipe!") {
+//                            saveRecipe(recipe: recipeDetailVM.randomRecipes.first!)
+////                            value.scrollTo(<#_#>, anchor: .top)
+//                            if !isPerformingTask {
+//                                
+//                                isPerformingTask = true
+//                                Task {
+//                                    await recipeDetailVM.populateRecipeDetail()
+//                                    isPerformingTask = false
+//                                }
+//                            }
+//                            
+//                        }
                         .font(.title3)
                         //                .fontWeight(.bold)
                         .foregroundColor(Color.white)
@@ -168,6 +169,7 @@ struct RecipeDetailScreen: View {
         //        }
         .background(backgroundGradient)
 //        .edgesIgnoringSafeArea(.all)
+    }
     }
     
     
