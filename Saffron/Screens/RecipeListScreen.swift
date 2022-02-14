@@ -38,7 +38,7 @@ struct RecipeListScreen: View {
             
             List (recipeListVM.recipes) { recipe in
                 
-                NavigationLink(destination: RecipeListItemDetailView(documentID: recipe.documentID).navigationTitle(recipe.title)) {
+                NavigationLink(destination: RecipeListItemDetailView(documentID: recipe.documentID, recipeListVM: recipeListVM).navigationTitle(recipe.title)) {
                     HStack(spacing: 20) {
                         AsyncImage(url: recipe.image) { image in
                             image.resizable()
