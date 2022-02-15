@@ -23,40 +23,68 @@ struct RecipeListScreen: View {
     @StateObject private var recipeListVM = RecipeListViewModel()
     //    var documentID: String
     let bounds = UIScreen.main.bounds
+    @State var searchTerm = ""
     
     var body: some View {
         
         VStack {
-//            Text("Your Cookbook")
-//                .font(.title)
-//                .fontWeight(.bold)
-//                .foregroundColor(Color.orange)
-//                .padding()
-////                .cornerRadius(50.0)
-//                .shadow(color: Color.orange.opacity(0.88), radius: 60, x: 0.0, y: 16)
-//                .padding(.bottom)
+            SearchBar(searchTerm: $searchTerm)
             
-            List (recipeListVM.recipes) { recipe in
-                
-                NavigationLink(destination: RecipeListItemDetailView(documentID: recipe.documentID, recipeListVM: recipeListVM).navigationTitle(recipe.title)) {
-                    HStack(spacing: 20) {
-                        AsyncImage(url: recipe.image) { image in
-                            image.resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(maxWidth: 100, maxHeight: 100)
-                                .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-                        } placeholder: {
-                            ProgressView()
+            List {
+                ForEach(recipeListVM.sectionDictionary.keys.sorted(), id:\.self) { key in
+                    if let recipes = recipeListVM.sectionDictionary[key]!.filter({ (recipe) -> Bool in
+                        self.searchTerm.isEmpty ? true :
+                        recipe.title.lowercased().contains(self.searchTerm.lowercased())}), !recipes.isEmpty
+                    {
+                        Section(header: Text(key)) {
+                            
+                            ForEach(recipes){ value in
+                                NavigationLink(destination: RecipeListItemDetailView(documentID: value.documentID, recipeListVM: recipeListVM).navigationTitle(value.title)) {
+                                    HStack(spacing: 20) {
+                                        AsyncImage(url: value.image) { image in
+                                            image.resizable()
+                                                .aspectRatio(contentMode: .fit)
+                                                .frame(maxWidth: 100, maxHeight: 100)
+                                                .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                                        } placeholder: {
+                                            ProgressView()
+                                        }
+                                        
+                                        Text(value.title)
+                                    }
+                                }
+                            }
                         }
-                        
-                        Text(recipe.title)
                     }
                 }
-                
-            }.onAppear {
-                recipeListVM.loadRecipeList(uid: viewModel.currentUser!.uid) // This is correct, I worked on it with Ansel
             }
+            .listStyle(GroupedListStyle())
+            
+            
+            //            List (recipeListVM.recipes) { recipe in
+            //
+            //                NavigationLink(destination: RecipeListItemDetailView(documentID: recipe.documentID, recipeListVM: recipeListVM).navigationTitle(recipe.title)) {
+            //                    HStack(spacing: 20) {
+            //                        AsyncImage(url: recipe.image) { image in
+            //                            image.resizable()
+            //                                .aspectRatio(contentMode: .fit)
+            //                                .frame(maxWidth: 100, maxHeight: 100)
+            //                                .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+            //                        } placeholder: {
+            //                            ProgressView()
+            //                        }
+            //
+            //                        Text(recipe.title)
+            //                    }
+            //                }
+            //
+            //            }
+            //            .onAppear {
+            //                recipeListVM.loadRecipeList(uid: viewModel.currentUser!.uid) // This is correct, I worked on it with Ansel
+            
         }
-//        .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            recipeListVM.loadRecipeList(uid: viewModel.currentUser!.uid)
+        }
     }
 }

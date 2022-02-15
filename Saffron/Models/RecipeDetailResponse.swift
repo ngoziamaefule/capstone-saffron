@@ -19,6 +19,7 @@ struct RecipeDetail: Codable {
     let title: String?
     let extendedIngredients: [IngredientRecord]
     let instructions: String?
+    let recipeNote: String?
 }
 
 struct IngredientRecord: Codable {

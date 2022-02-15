@@ -11,6 +11,7 @@
 		CB5B83E727B711AD0004D897 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5B83E627B711AC0004D897 /* UIImage+Extension.swift */; };
 		CB5B83E927B9B07A0004D897 /* RecipeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5B83E827B9B07A0004D897 /* RecipeCardView.swift */; };
 		CB5B83EB27BACD540004D897 /* saffron3.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = CB5B83EA27BACD540004D897 /* saffron3.jpeg */; };
+		CB5B83ED27BC33980004D897 /* CookbookSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5B83EC27BC33980004D897 /* CookbookSearchBar.swift */; };
 		CB888CF127AB150B003FD677 /* SaffronApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB888CF027AB150B003FD677 /* SaffronApp.swift */; };
 		CB888CF327AB150B003FD677 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB888CF227AB150B003FD677 /* ContentView.swift */; };
 		CB888CF527AB1511003FD677 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB888CF427AB1511003FD677 /* Assets.xcassets */; };
@@ -48,6 +49,7 @@
 		CB5B83E627B711AC0004D897 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		CB5B83E827B9B07A0004D897 /* RecipeCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCardView.swift; sourceTree = "<group>"; };
 		CB5B83EA27BACD540004D897 /* saffron3.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = saffron3.jpeg; path = ../../saffron3.jpeg; sourceTree = "<group>"; };
+		CB5B83EC27BC33980004D897 /* CookbookSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookbookSearchBar.swift; sourceTree = "<group>"; };
 		CB888CED27AB150B003FD677 /* Saffron.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Saffron.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB888CF027AB150B003FD677 /* SaffronApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaffronApp.swift; sourceTree = "<group>"; };
 		CB888CF227AB150B003FD677 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 				CB5B83E427B6C5A60004D897 /* AsyncButton.swift */,
 				CB5B83E627B711AC0004D897 /* UIImage+Extension.swift */,
 				CB5B83E827B9B07A0004D897 /* RecipeCardView.swift */,
+				CB5B83EC27BC33980004D897 /* CookbookSearchBar.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -305,6 +308,7 @@
 				CBCBE35827B43A7D003CFCEB /* RecipeListItemViewModel.swift in Sources */,
 				CBE6206927AC173B00C4A8C2 /* RecipeDetailViewModel.swift in Sources */,
 				CB888D1827AB7A7E003FD677 /* WelcomeScreenView.swift in Sources */,
+				CB5B83ED27BC33980004D897 /* CookbookSearchBar.swift in Sources */,
 				CB888CF327AB150B003FD677 /* ContentView.swift in Sources */,
 				CB888CF127AB150B003FD677 /* SaffronApp.swift in Sources */,
 				CBE6206327AC16BC00C4A8C2 /* Constants.swift in Sources */,

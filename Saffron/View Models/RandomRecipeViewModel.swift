@@ -44,4 +44,8 @@ struct RandomRecipeViewModel {
     var instructions: String {
         recipe.instructions ?? ""
     }
+    
+    var recipeNote: String {
+        recipe.recipeNote ?? ""
+    }
 }

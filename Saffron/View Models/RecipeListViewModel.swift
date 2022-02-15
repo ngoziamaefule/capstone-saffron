@@ -14,14 +14,28 @@ import FirebaseFirestoreSwift
 @MainActor
 class RecipeListViewModel: ObservableObject {
     private var db: Firestore
-    @Published var recipes: [RecipeListItemViewModel] = [RecipeListItemViewModel]()
+    var recipes: [RecipeListItemViewModel] = [RecipeListItemViewModel]()
+    @Published var sectionDictionary : Dictionary<String , [RecipeListItemViewModel]> = [:]
     @Published var recipe: RandomRecipeViewModel?
     
     init() {
         db = Firestore.firestore()
     }
     
-  
+    func getSectionedDictionary() -> Dictionary <String, [RecipeListItemViewModel]> {
+        let sectionDictionary: Dictionary<String, [RecipeListItemViewModel]> = {
+            return Dictionary(grouping: recipes.sorted(by: { lhs, rhs in
+                return lhs.title < rhs.title
+            }), by: {
+                let recipe = $0.title
+                let normalizedRecipe = recipe.folding(options: [.diacriticInsensitive, .caseInsensitive], locale: .current)
+                let firstChar = String(normalizedRecipe.first!).uppercased()
+                return firstChar
+            })
+        }()
+        return sectionDictionary
+    }
+    
     // making a call to loadRecipeList function instead of using url
     
     func loadRecipeList(uid: String) {
@@ -39,6 +53,7 @@ class RecipeListViewModel: ObservableObject {
                                 return RecipeListItemViewModel(recipeDetail!)
 //                                return RecipeListItemViewModel(id: doc.documentID)
                             }
+                            self.sectionDictionary = self.getSectionedDictionary()
                         }
                     }
                 }
@@ -73,6 +88,51 @@ class RecipeListViewModel: ObservableObject {
                 }
             }
         }
+    
+    func updateRecipe(uid: String, documentID: String, recipeNote: String, completion: @escaping () -> ()) {
+        let updatedRecipe = db.collection("cookbooks").document(uid).collection("recipes").document(documentID)
+        
+        updatedRecipe.updateData(["recipeNote": recipeNote]) { error in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                print("Update successful")
+                completion()
+            }
+//            } else {
+//                if let doc = doc {
+//
+//                    DispatchQueue.main.async {
+//                        var recipeDetail = try? doc.data(as: RecipeDetail.self)
+//                        recipeDetail?.documentID = doc.documentID
+//                        self.recipe = RandomRecipeViewModel(recipeDetail!)
+//                    }
+//                }
+//
+//            }
+        }
+        
+        
+    }
+    
+//    func saveRecipeNotes(uid: String, documentID: String) {
+//        //        let uid = viewModel.currentUser!.uid
+//        db.collection("cookbooks").document(uid).collection("recipes").document(documentID).collection("") { doc, error in
+//            if let error = error {
+//                print(error.localizedDescription)
+//            } else {
+//                if let doc = doc {
+//
+//                    DispatchQueue.main.async {
+//                        var recipeDetail = try? doc.data(as: RecipeDetail.self)
+//                        recipeDetail?.documentID = doc.documentID
+//                        self.recipe = RandomRecipeViewModel(recipeDetail!)
+//                    }
+//                }
+//            }
+//        }
+//    }
+    
     }
 
 
